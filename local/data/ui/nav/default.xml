@@ -1,0 +1,8 @@
+<nav search_view="search">
+  <view name="search" default='true' />
+  <view name="home" />
+  <view name="airfield" />
+  <view name="baggage" />
+  <view name="security" />
+  <view name="terminals" />
+</nav>
