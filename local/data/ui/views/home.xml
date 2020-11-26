@@ -1,3 +1,8 @@
 <dashboard>
   <label>Home</label>
+  <row>
+  <html>
+    <img src="/static/app/splunk4airports/s4a_transparent.png" />
+  </html>
+  </row>
 </dashboard>
