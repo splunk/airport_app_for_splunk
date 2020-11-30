@@ -1,0 +1,298 @@
+code,9750_out
+0,Long Sell
+1,Short Sell
+12C,Highest and intermediate classes combined
+1ST,Highest class of service
+2,Group
+2ND,Intermediate class of service
+3RD,Normal class of service
+3,OF – 2nd carbon offset service code
+4,Validating carrier fee penalty fee
+5,OE – 1st carbon offset service code
+6,PTA service charge (applicable to EMD-S only)
+7,OG – 3rd carbon offset service code
+700,Number of Days
+701,Day(s) of Week
+702,Hours
+703,Minutes
+704,Months
+705,Weeks
+706,Conversion from
+707,Conversion to
+708,Preferred -- Requested carrier to be shown first followed by other carriers
+709,Excluded -- Specified carriers not to be shown, include other carriers
+710,Mandatory -- Only requested carriers to be shown, exclude other carriers
+711,Includes connection city
+712,Excludes connection city
+713,Use cities/airports as booked
+714,Consider multi-airports for city
+715,Direct service 
+716,Single connection
+717,Double connection
+718,Triple connection
+719,Online
+720,Interline
+721,This city/airport eligible as a first connection point
+722,This city/airport eligible as a second connection point
+723,This city/airport eligible as a third connection point
+724,Non-stop
+725,Passenger Name Record Queue
+726,Message Queue
+727,Mixed Queue (contains both PNRs and messages)
+728,Blocked seats
+729,Remaining available seats
+730,Meals
+731,By passive crew
+732,By boarded passengers
+733,By passenger not yet boarded
+734,By boarded passengers with electronic products
+735,By internet check-in
+736,By passengers to be included on cabin crew information list (PIL)
+737,By booked passengers with electronic products
+738,By passengers with confirmed reservation status
+739,By accepted passengers with electronic products
+740,Search by FOID
+741,By passengers with electronic tickets
+742,By passengers with ticketless products (other than electronic tickets)
+743,By passengers requesting upgrade
+744,By passengers with cancelled check-in
+745,By courier seats
+746,By extra seats
+747,Total of all industry discount passengers
+748,Total number of seats
+749,Expected flown including ID/FQTU
+750,By FQTU not yet upgraded
+751,Last meal order correction
+752,Number of special meal ordered
+753,By passenger with API data
+754,Except passenger with API data
+755,Irregularities
+756,API data entered manually
+757,Number of accepted adults/males on segment
+758,Number of accepted children on segment
+759,Number of accepted females on segment
+760,Number of accepted infants on segment
+761,Actual number of baggage for accepted passengers on segment
+762,Actual total weight of baggage for accepted passengers on segment
+763,Passengers on late arriving connecting flight(s)
+764,Passengers available for voluntary denied boarding
+765,Regulation type
+766,Exclude double connections
+767,Exclude specific class
+768,Single connection or better
+769,Account code and published fares
+770,Include jet service only
+771,Exclude penalty fares
+772,Time window
+773,Fee related to booking 
+774,Fee related to ticketing
+775,Fee related to service
+AA,by passenger name
+AB,by class of service
+ABA,Air bridge attach
+ABD,Air bridge detach
+AC,by destination
+AD,by bagtag serial range
+ADC,Actual time of de-ice
+AE,by SSR (Special Service Request)
+AF,by OSI (Other Service Information)
+AG,by onload priority
+AH,by transfer baggage list
+AI,by frequent flyer
+AJ,by inbound connection
+AK,by outbound connection
+AL,by seat reference
+AM,by check-in sequence number
+AN,by boarding security reference
+AO,by through checked passengers
+AP,by upgraded passengers
+AQ,by downgraded passengers
+AR,by re-checked-in passengers (all passengers transferred to and from flights).
+AS,by re-checked passengers transferred to a flight
+AT,by re-checked passengers transferred from a flight
+ATC,ATC notification (see text segment)
+AU,by group identifier
+AV,by group size
+AW,by passenger with comments
+AX,by passenger with gate comments
+AY,by PNR record locator
+AZ,by extra seat info
+BA,by transit passengers (same aircraft)
+BAG,Baggage in hall
+BB,by jump seat passengers
+BC,by crew seat passengers
+BCL,Baggage belt clear
+BD,by cabin class
+BE,by passengers travelling alone
+BEN,End Boarding
+BF,by passengers travelling with infants
+BG,by passengers with checked baggage
+BH,by gender
+BI,by ticket number
+BJ,by free travel passengers (Frequent Flyer redemption travel)
+BK,by seat changes
+BL,by checked in passengers holding seats
+BM,by checked in passengers not holding seats
+BN,by passengers with pre-reserved seats
+BO,by passengers with advance boarding passes
+BP,by passengers with airport issued boarding passes
+BQ,by waitlisted passengers
+BR,by open ticket passengers
+BS,by youth ticket passengers
+BST,Start Boarding
+BT,By rebate passengers travelling on non positive space
+BU,By rebate passengers travelling on positive space
+BUS,Bus Call
+BV,by standby passengers 
+BW,by goshow (norec) passengers
+BX,by noshow/not checked in passengers
+BY,by onloaded passengers
+BZ,by offloaded passengers
+CA,by all (full list) passengers
+CB,by unaccompanied minor passengers
+CC,by checked in passengers by check-in station
+CD,by misconnected passengers
+CE,by reconfirmed passengers
+CF,by oversold passengers
+CG,by name entered by airport prior to check-in
+CGT,Commence of ground handling time
+CH,by passengers with alternate destination
+CHC,Check-in closed
+CHK,Check-in open
+CI,by passengers willing to split
+CJ,by expected transfer passengers inbound through checked
+CK,by unique passenger reference
+CL,by Voucher
+CM,by telephone check-in
+CN,by self service check-in
+CO,by Inter Airline Through check-in
+CP,by railway check-in
+CQ,by hotel check-in
+CRD,Cabin ready
+CTO,Clear to take off
+DCL,Doors Closed
+DEL,Delayed
+DIC,Time of de-ice
+DIS,Dis-embarkation complete
+DIV,Diversion
+DOP,Doors Open
+EAR,Early
+ENG,Start Engine
+FCT,Final call time
+FBG,First Bag unloaded
+FCL,Flight Closed
+FIN,Finals
+FIR,FIR
+FND,Fuelling complete
+FST,Fuelling start
+GCL,Gate Closed
+GFR,Gate Free
+GRD,Ground movement
+GTG,Go to gate
+GTO,Gate Open
+HEN,Hold Finish
+HST,Hold Start
+JET,Jetway/Stairs
+LAN,Landed
+LBG,Last Bag unloaded
+MND,Maintenance finish
+MST,Maintenance start
+MZC,Manoeuvring zone clear
+MZO,Manoeuvring zone occupied
+NAA,except with specified name
+NAB,except with specified class
+NAC,except with specified destination
+NAD,except with specified bagtag serial range
+NAE,except with SSR (Special Service Request) 
+NAF,except with OSI (Other Service Information)
+NAG,except with specified onload priority
+NAH,except with transfer baggage
+NAI,except with frequent flyer
+NAJ,except with inbound connection
+NAK,except with outbound connection
+NAL,except with seat reference
+NAM,except with check-in sequence number
+NAN,except with boarding security reference
+NAO,except through checked passengers
+NAP,except upgraded passengers
+NAQ,except downgraded passengers
+NAR,except re-checked in passengers (all passengers transferred to and from flights)
+NAS,except re-checked passengers transferred to a flight
+NAT,except re-checked passengers transferred from a flight
+NAU,except with group identifier
+NAV,except with group size
+NAW,except passenger with comments
+NAX,except passenger with gate comments
+NAY,except with PNR record locator
+NAZ,except with extra seat info
+NBA,except transit passengers (same aircraft)
+NBB,except jump seat passengers
+NBC,except crew seat passengers
+NBD,except with cabin class
+NBE,except passengers travelling alone
+NBF,except passengers travelling with infants
+NBG,except passengers with checked baggage
+NBH,except with gender
+NBI,except with specified ticket number
+NBJ,except free travel passengers (Frequent Flyer redemption travel)
+NBK,except with seat changes
+NBL,except checked in passengers holding seats
+NBM,except checked in passengers not holding seats
+NBN,except passengers with pre-reserved seats
+NBO,except passengers with advance boarding passes
+NBP,except passengers with airport issued boarding passes
+NBQ,except waitlisted passengers
+NBR,except open ticket passengers
+NBS,except youth ticket passengers
+NBT,except rebate (not positive space) passengers
+NBU,except duty/positive space passengers
+NBV,except standby passengers
+NBW,except goshow (norec) passengers
+NBX,except noshow/not checked in passengers
+NBY,except onloaded passengers
+NBZ,except offloaded passengers
+NCA,except all (full list) passengers
+NCB,except unaccompanied minor passengers
+NCC,except checked in passengers by check-in station
+NCD,except misconnected passengers
+NCE,except reconfirmed passengers
+NCF,except oversold passengers
+NCG,except name entered by airport prior to check-in
+NCH,except passengers with alternate destination
+NCI,except passengers willing to split
+NCJ,except expected transfer passengers inbound through checked
+NCK,except with specified unique passenger reference
+NCL,except passengers with voucher
+NCM,except passengers checked in by telephone 
+NCN,except passengers checked in by self-service
+NCO,except passengers check in by Inter Airline Through Check-in
+NCP,except passengers checked in at railway
+NCQ,except passengers checked in at hotel
+OFB,Off Blocks
+OFS,Off stand
+ONB,On Blocks
+ONS,On stand
+P1,Last available for city pair date - for receiving choice of routing/carriers (combined seamless sell and availability)
+P10,Basic booking
+P2,Seamless Sell
+P3,Last Seat Availability-specific carrier flight number
+P4,Last Seat Availability-for a city pair and date for a specified carrier
+P5,Record locator returned
+P6,Seamless Availability
+P7,Numeric AVS
+PBK,Push Back
+RDT,Ready time
+RFA,Return from airborne
+RST,Return to stand
+SAT,Start up approval time
+SCT,Scheduled time
+SPE,Special - see text
+SRT,Start up request time
+STK,Stack
+TDN,Touch down
+TDP,Ten minutes before departure
+TEN,10 minutes out
+THM,30 Minutes out
+TKO,Take Off
+UNS,Aircraft unserviceable
+WAB,Weight and balance
