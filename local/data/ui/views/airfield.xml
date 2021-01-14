@@ -1,3 +1,96 @@
-<dashboard>
+<form theme="dark">
   <label>Airfield</label>
-</dashboard>
+  <search id="baseDepartures">
+    <query>`flightBase` departureOrArrival=D serviceType="J" 
+| addinfo 
+| where (SOBT&gt;info_min_time AND SOBT&lt;info_max_time)
+| stats latest(SOBT) AS SOBT, latest(AOBT) AS AOBT, latest(EOBT) AS EOBT, latest(aircraftParkingPosition) AS aircraftParkingPosition, latest(FQFC) AS FQFC, latest(airline) AS airline, latest(passengerGate) AS passengerGate by flightUID
+| fields *
+</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+  </search>
+  <search id="baseArrivals">
+    <query>`flightBase` departureOrArrival=A serviceType="J"
+| addinfo 
+| where (SIBT&gt;info_min_time AND SIBT&lt;info_max_time)
+| stats latest(SIBT) AS SIBT, latest(AIBT) AS AIBT, latest(EIBT) AS EIBT, latest(aircraftParkingPosition) AS aircraftParkingPosition, latest(FQFC) AS FQFC, latest(airline) AS airline, latest(passengerGate) AS passengerGate by flightUID
+| fields *
+</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="time_tok">
+      <label>Time</label>
+      <default>
+        <earliest>1609891200</earliest>
+        <latest>1609977600</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>On-Time Departures</title>
+        <search base="baseDepartures">
+          <query>
+| where isnotnull(AOBT)
+| `otd_pass_fail(900)`
+| top OTD
+| where OTD="Pass"
+| fields percent</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>On-Time Arrivals</title>
+        <search base="baseArrivals">
+          <query>
+| where isnotnull(AIBT)
+| `ota_pass_fail(900)`
+| top OTA
+| where OTA="Pass"
+| fields percent</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Flight Departures Profile</title>
+        <search base="baseDepartures">
+          <query>| eval _time=SOBT
+| timechart span=15m count AS Departures</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Flight Arrivals Profile</title>
+        <search base="baseArrivals">
+          <query>| eval _time=SIBT
+| timechart span=15m count AS Arrivals</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+      </chart>
+    </panel>
+  </row>
+</form>
