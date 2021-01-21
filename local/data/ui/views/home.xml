@@ -1,8 +1,103 @@
-<dashboard>
+<dashboard theme="dark">
   <label>Home</label>
   <row>
-  <html>
-    <img src="/static/app/splunk4airports/s4a_transparent.png" />
+    <panel>
+      <title>Flights</title>
+      <single>
+        <title>Event Count `flightBase` (Last 60mins)</title>
+        <search>
+          <query>| tstats count where `flightBase`</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Required Field Counts (Last 60mins)</title>
+        <search>
+          <query>`flightBase` 
+| stats dc(flightUID) AS flightUID, dc(airline) as airlines dc(flightNumber) AS flightNumbers, dc(FQFC) as FQFCs, dc(aircraftParkingPosition) AS aircraftParkingPosition, dc(passengerGate) AS passengerGate</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="color" field="flightUID">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="airlines">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="flightNumbers">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="FQFCs">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="aircraftParkingPosition">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="passengerGate">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Departures Operational TimeStamps (Last 60 mins)</title>
+        <search>
+          <query>`flightBase` departureOrArrival=D
+| stats count(SOBT) AS SOBTs count(EOBT) AS EBOTs count(AOBT) AS AOBTs count(TOBT) AS TOBTs 
+| transpose 
+| rename column AS "Departure TimeStamps", "row 1" as count
+| sort - count</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="color" field="count">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Arrivals Operational TimeStamps (Last 60 mins)</title>
+        <search>
+          <query>`flightBase` departureOrArrival=A
+| stats count(SIBT) AS SIBTs count(EIBT) AS EBITs count(AIBT) AS AIBTs count(TIBT) AS TIBTs 
+| transpose 
+| rename column AS "Arrival TimeStamps", "row 1" as count
+| sort - count</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="color" field="count">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+    <img src="/static/app/splunk4airports/s4a_transparent.png"/>
   </html>
+    </panel>
   </row>
 </dashboard>
