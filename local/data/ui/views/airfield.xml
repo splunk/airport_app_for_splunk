@@ -28,6 +28,11 @@
         <latest>1609977600</latest>
       </default>
     </input>
+    <input type="text" token="otpt" searchWhenChanged="true">
+      <label>OTP Threshold (Seconds)</label>
+      <default>900</default>
+      <initialValue>900</initialValue>
+    </input>
   </fieldset>
   <row>
     <panel>
@@ -36,7 +41,7 @@
         <search base="baseDepartures">
           <query>
 | where isnotnull(AOBT)
-| `otd_pass_fail(900)`
+| `otd_pass_fail($otpt$)`
 | top OTD
 | where OTD="Pass"
 | fields percent</query>
@@ -54,7 +59,7 @@
         <search base="baseArrivals">
           <query>
 | where isnotnull(AIBT)
-| `ota_pass_fail(900)`
+| `ota_pass_fail($otpt$)`
 | top OTA
 | where OTA="Pass"
 | fields percent</query>
@@ -73,11 +78,13 @@
         <title>Flight Departures Profile</title>
         <search base="baseDepartures">
           <query>| eval _time=SOBT
-| timechart span=15m count AS Departures</query>
+| `otd_pass_fail($otpt$)`
+| timechart count(eval(OTD="Pass")) AS On-Time span=15m count AS Departures</query>
         </search>
         <option name="charting.chart">column</option>
+        <option name="charting.chart.overlayFields">On-Time</option>
         <option name="charting.drilldown">none</option>
-        <option name="charting.legend.placement">none</option>
+        <option name="charting.legend.placement">bottom</option>
       </chart>
     </panel>
     <panel>
@@ -85,11 +92,36 @@
         <title>Flight Arrivals Profile</title>
         <search base="baseArrivals">
           <query>| eval _time=SIBT
-| timechart span=15m count AS Arrivals</query>
+          | `ota_pass_fail($otpt$)`
+| timechart count(eval(OTA="Pass")) AS On-Time span=15m count AS Arrivals
+          </query>
         </search>
         <option name="charting.chart">column</option>
+        <option name="charting.chart.overlayFields">On-Time</option>
         <option name="charting.drilldown">none</option>
-        <option name="charting.legend.placement">none</option>
+        <option name="charting.legend.placement">bottom</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Most Frequently Used Departure Gate</title>
+        <search base="baseDepartures">
+          <query>| top passengerGate</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Most Frequently Used Arrivals Gate</title>
+        <search base="baseArrivals">
+          <query>| top passengerGate</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
       </chart>
     </panel>
   </row>

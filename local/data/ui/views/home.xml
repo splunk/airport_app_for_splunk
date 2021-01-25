@@ -2,6 +2,74 @@
   <label>Home</label>
   <row>
     <panel>
+      <html>
+      <center>
+      <h1>Welcome to the Splunk App For Airports</h1>
+          <br/>
+      This app is designed as a framework to help you, the Airport employee, get the most value out of Splunk.<br/>
+      In order to use this app, you must configure your data sources to conform to the Splunk4Airports Common Information Model. This can be found <a href="#">here.</a>
+          <br/>
+      If you have imnplemented the above mentioned CIM correctly, you should seel the below panels light up green below. For this app to function, the following fields are <b>required</b>
+      <table border="2">
+        <tr>
+          <td>Field</td>
+          <td>Description</td>
+        </tr>
+        <tr>
+          <td>flightUID</td>
+          <td>A unique identifier for the flight leg</td>
+        </tr>
+        <tr>
+          <td>serviceType</td>
+          <td>The operational status of the flight. Refer to serviceTypes lookup. If you only have scheduled flights in your data, you can set this field to a static "J"</td>
+        </tr>
+        <tr>
+          <td>passengerGate</td>
+          <td>The public gate which the passengers will use to board or disembark.</td>
+        </tr>
+        <tr>
+          <td>aircraftParkingPosition</td>
+          <td>Gate or hard stand where the aircraft is located</td>
+        </tr>
+        <tr>
+          <td>airline</td>
+          <td>The IATA code for the operating airline</td>
+        </tr>
+        <tr>
+          <td>FQFC</td>
+          <td>Fully Qualified Flight Code. A concatenation between airline and flightNumber.</td>
+        </tr>
+        <tr>
+          <td>SOBT</td>
+          <td>Scheduled Off-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>EOBT</td>
+          <td>Estimated Off-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>AOBT</td>
+          <td>Actual Off-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>SIBT</td>
+          <td>Scheduled In-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>EIBT</td>
+          <td>Estimated In-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>AIBT</td>
+          <td>Actual In-Block Time (Epoch)</td>
+        </tr>
+      </table>
+      </center>
+    </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <title>Flights</title>
       <single>
         <title>Event Count `flightBase` (Last 60mins)</title>
@@ -21,12 +89,16 @@
         <title>Required Field Counts (Last 60mins)</title>
         <search>
           <query>`flightBase` 
-| stats dc(flightUID) AS flightUID, dc(airline) as airlines dc(flightNumber) AS flightNumbers, dc(FQFC) as FQFCs, dc(aircraftParkingPosition) AS aircraftParkingPosition, dc(passengerGate) AS passengerGate</query>
+| stats dc(flightUID) AS flightUIDs dc(serviceType) as serviceTypes dc(airline) as airlines dc(flightNumber) AS flightNumbers dc(FQFC) as FQFCs dc(aircraftParkingPosition) AS aircraftParkingPosition dc(passengerGate) AS passengerGate</query>
           <earliest>-60m@m</earliest>
           <latest>now</latest>
         </search>
         <option name="drilldown">none</option>
-        <format type="color" field="flightUID">
+        <format type="color" field="flightUIDs">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="serviceTypes">
           <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
           <scale type="threshold">1</scale>
         </format>
@@ -59,7 +131,7 @@
         <title>Departures Operational TimeStamps (Last 60 mins)</title>
         <search>
           <query>`flightBase` departureOrArrival=D
-| stats count(SOBT) AS SOBTs count(EOBT) AS EBOTs count(AOBT) AS AOBTs count(TOBT) AS TOBTs 
+| stats count(SOBT) AS SOBTs count(EOBT) AS EOBTs count(AOBT) AS AOBTs 
 | transpose 
 | rename column AS "Departure TimeStamps", "row 1" as count
 | sort - count</query>
@@ -67,6 +139,7 @@
           <latest>now</latest>
         </search>
         <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
         <format type="color" field="count">
           <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
           <scale type="threshold">1</scale>
@@ -78,7 +151,7 @@
         <title>Arrivals Operational TimeStamps (Last 60 mins)</title>
         <search>
           <query>`flightBase` departureOrArrival=A
-| stats count(SIBT) AS SIBTs count(EIBT) AS EBITs count(AIBT) AS AIBTs count(TIBT) AS TIBTs 
+| stats count(SIBT) AS SIBTs count(EIBT) AS EBITs count(AIBT) AS AIBTs 
 | transpose 
 | rename column AS "Arrival TimeStamps", "row 1" as count
 | sort - count</query>
