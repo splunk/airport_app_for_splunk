@@ -1,5 +1,78 @@
 <form theme="dark">
+  <init>
+    <set token="head">0</set>
+    <set token="torso">0</set>
+    <set token="waist">0</set>
+    <set token="shoes">0</set>
+  </init>
   <label>Security</label>
+  <row depends="$hidden$">
+    <panel>
+      <html>
+        <head>
+              <style>
+         .wtmd-table{
+            border: 0px solid black;
+            width: 80%;
+            text-align: center;
+            font-size: 50px;
+         }
+      </style>
+   </head>
+      </html>
+    </panel>
+  </row>
+  <search id="paxBase">
+    <query>`securityBase`
+| fields _time zoneAlarm, passengerDirection, WTMDID, randomAlarm, alarm
+</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+  </search>
+  <search base="paxBase">
+    <query>| search alarm="True"
+| `alarm_zone_output`
+| top head
+| where head=1
+| eval percent=round(percent,2)
+| fields percent</query>
+    <done>
+      <set token="head">$result.percent$</set>
+    </done>
+  </search>
+  <search base="paxBase">
+    <query>| search alarm="True"
+| `alarm_zone_output`
+| top torso
+| where torso=1
+| eval percent=round(percent,2)
+| fields percent</query>
+    <done>
+      <set token="torso">$result.percent$</set>
+    </done>
+  </search>
+  <search base="paxBase">
+    <query>| search alarm="True"
+| `alarm_zone_output`
+| top waist
+| where waist=1
+| eval percent=round(percent,2)
+| fields percent</query>
+    <done>
+      <set token="waist">$result.percent$</set>
+    </done>
+  </search>
+  <search base="paxBase">
+    <query>| search alarm="True"
+| `alarm_zone_output`
+| top shoes
+| where shoes=1
+| eval percent=round(percent,2)
+| fields percent</query>
+    <done>
+      <set token="shoes">$result.percent$</set>
+    </done>
+  </search>
   <fieldset submitButton="false">
     <input type="time" token="time_tok">
       <label>Time</label>
@@ -11,9 +84,102 @@
   </fieldset>
   <row>
     <panel>
+      <chart>
+        <title>Passenger Count</title>
+        <search base="paxBase">
+          <query>
+| timechart span=15m sum(passengerDirection) as Pax</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Real Alarm Percent</title>
+        <search base="paxBase">
+          <query>| top alarm
+| search alarm="True"
+| fields percent</query>
+          <done>
+            <set token="a">$result.percent$</set>
+          </done>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Random Alarm Percent</title>
+        <search base="paxBase">
+          <query>| top randomAlarm
+| search randomAlarm="True"
+| fields percent</query>
+          <done>
+            <set token="r">$result.percent$</set>
+          </done>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Total Alarm Percent</title>
+        <search>
+          <query>| makeresults | eval percent=$a$+$r$ | fields percent</query>
+          <earliest>$time_tok.earliest$</earliest>
+          <latest>$time_tok.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Alarm Zones</title>
       <html>
-    <img src="/static/app/splunk4airports/silhouette.png"/>
+        <table class="wtmd-table">
+          <tr>
+            <td rowspan="5">
+            <img src="/static/app/splunk4airports/silhouette.png"/>
+            </td>
+            <tr>
+              <td>$head$%</td>
+            </tr>
+            <tr>
+              <td>$torso$%</td>
+            </tr>
+            <tr>
+              <td>$waist$%</td>
+            </tr>
+            <tr>
+              <td>$shoes$%</td>
+            </tr>
+          </tr>
+        </table>
   </html>
+    </panel>
+    <panel>
+      <table>
+        <title>Foo</title>
+        <search>
+          <query>| makeresults</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
     </panel>
   </row>
 </form>

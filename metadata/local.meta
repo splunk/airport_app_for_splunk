@@ -28,7 +28,7 @@ modtime = 1603721775.702975000
 [views/security]
 owner = admin
 version = 8.1.0
-modtime = 1611660011.582633000
+modtime = 1611667010.390496000
 
 [views/terminals]
 owner = admin
@@ -62,3 +62,15 @@ export = none
 owner = admin
 version = 8.1.0
 modtime = 1610548843.963818000
+
+[macros/securityBase]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1611662184.969474000
+
+[macros/alarm_zone_output]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1611665471.837822000
