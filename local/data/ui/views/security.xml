@@ -6,24 +6,6 @@
     <set token="shoes">0</set>
   </init>
   <label>Security</label>
-  <row depends="$hidden$">
-    <panel>
-      <html>
-        <head>
-              <style>
-         .wtmd-table{
-            border: 1px solid white;
-            width: 80%;
-            text-align: center;
-            font-size: 50px;
-            margin-left: auto;
-            margin-right: auto;
-         }
-      </style>
-   </head>
-      </html>
-    </panel>
-  </row>
   <search id="paxBase">
     <query>`securityBase`
 | fields _time zoneAlarm, passengerDirection, WTMDID, randomAlarm, alarm
@@ -84,6 +66,32 @@
       </default>
     </input>
   </fieldset>
+  <row depends="$hidden$">
+    <panel>
+      <html>
+        <head>
+              <style>
+         .wtmd-table{
+            border: 0px solid white;
+            width: 80%;
+            text-align: center;
+            font-size: 50px;
+            margin-left: auto;
+            margin-right: auto;
+         }
+         img.resizePax {
+          width:145px;
+          height:460px;
+         }
+         img.resizeBag {
+          width:200px;
+          height:460px;
+         }
+      </style>
+   </head>
+      </html>
+    </panel>
+  </row>
   <row>
     <panel>
       <chart>
@@ -155,7 +163,7 @@
           <tbody>
           <tr>
             <td rowspan="4">
-            <img src="/static/app/splunk4airports/silhouette.png"/>
+            <img class="resizePax" src="/static/app/splunk4airports/silhouette.png"/>
             </td>
             <td>$head$%</td>
             <tr>
@@ -175,25 +183,22 @@
   </html>
     </panel>
     <panel>
-      <title>Alarm Zones</title>
+      <title>Cabin Bags</title>
       <html>
         <table class="wtmd-table">
           <tbody>
           <tr>
-            <td rowspan="4">
-            <img src="/static/app/splunk4airports/cabinbag.png"/>
+            <td rowspan="3">
+            <img class="resizeBag" src="/static/app/splunk4airports/cabinbag.png"/>
             </td>
-            <td>$head$%</td>
+            <td>Images<br/>999</td>
             <tr>
 
-              <td>$torso$%</td>
+              <td>IPP<br/>1.75</td>
             </tr>
             <tr>
 
-              <td>$waist$%</td>
-            </tr>
-            <tr>
-              <td>$shoes$%</td>
+              <td>Rejects<br/>23.00%</td>
             </tr>
           </tr>
           </tbody>
