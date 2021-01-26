@@ -1,19 +1,66 @@
-<dashboard theme="dark">
+<form theme="dark">
   <label>Home</label>
+  <fieldset submitButton="false">
+    <input type="checkbox" token="vi">
+      <label>Instructions</label>
+      <choice value="true">Show</choice>
+      <delimiter> </delimiter>
+    </input>
+  </fieldset>
+  <row depends="$hidden$">
+    <panel>
+      <html>
+        <head>
+        <style>
+          .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+          font-size: 0.9em;
+           font-family: sans-serif;
+           min-width: 400px;
+           box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+         }
+         .styled-table thead tr {
+           background-color: #009879;
+           color: #222222;
+           text-align: left;
+        }
+        .styled-table th,
+        .styled-table td {
+           padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+           border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+           background-color: #111111;
+        }
+        </style>
+        </head>
+        </html>
+    </panel>
+  </row>
   <row>
     <panel>
       <html>
-      <center>
+    
       <h1>Welcome to the Splunk App For Airports</h1>
           <br/>
       This app is designed as a framework to help you, the Airport employee, get the most value out of Splunk.<br/>
       In order to use this app, you must configure your data sources to conform to the Splunk4Airports Common Information Model. This can be found <a href="#">here.</a>
           <br/>
-      If you have imnplemented the above mentioned CIM correctly, you should seel the below panels light up green below. For this app to function, the following fields are <b>required</b>
-      <table border="2">
+          </html>
+    </panel>
+  </row>
+  <row depends="$vi$">
+    <panel>
+      <html>
+      If you have imnplemented the above mentioned CIM correctly, you should see the below panels light up green below. For this app to function, the following fields are <b>required</b>
+      <table class="styled-table">
         <tr>
-          <td>Field</td>
-          <td>Description</td>
+          <th>Field</th>
+          <th>Description</th>
         </tr>
         <tr>
           <td>flightUID</td>
@@ -40,6 +87,10 @@
           <td>Fully Qualified Flight Code. A concatenation between airline and flightNumber.</td>
         </tr>
         <tr>
+          <td>destAirport</td>
+          <td>The destination of this flight leg</td>
+        </tr>
+        <tr>
           <td>SOBT</td>
           <td>Scheduled Off-Block Time (Epoch)</td>
         </tr>
@@ -50,6 +101,10 @@
         <tr>
           <td>AOBT</td>
           <td>Actual Off-Block Time (Epoch)</td>
+        </tr>
+        <tr>
+          <td>originAirport</td>
+          <td>The originating flight leg airport for arriving flights</td>
         </tr>
         <tr>
           <td>SIBT</td>
@@ -64,7 +119,7 @@
           <td>Actual In-Block Time (Epoch)</td>
         </tr>
       </table>
-      </center>
+  
     </html>
     </panel>
   </row>
@@ -89,12 +144,21 @@
         <title>Required Field Counts (Last 60mins)</title>
         <search>
           <query>`flightBase` 
-| stats dc(flightUID) AS flightUIDs dc(serviceType) as serviceTypes dc(airline) as airlines dc(flightNumber) AS flightNumbers dc(FQFC) as FQFCs dc(aircraftParkingPosition) AS aircraftParkingPosition dc(passengerGate) AS passengerGate</query>
+| stats dc(flightUID) AS flightUIDs dc(destAirport) AS destAirports, dc(originAirport) AS originAirports dc(serviceType) as serviceTypes dc(airline) as airlines dc(flightNumber) AS flightNumbers dc(FQFC) as FQFCs dc(aircraftParkingPosition) AS aircraftParkingPosition dc(passengerGate) AS passengerGate</query>
           <earliest>-60m@m</earliest>
           <latest>now</latest>
         </search>
         <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
         <format type="color" field="flightUIDs">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="destAirports">
+          <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
+          <scale type="threshold">1</scale>
+        </format>
+        <format type="color" field="originAirports">
           <colorPalette type="list">[#E08282,#8CDB92]</colorPalette>
           <scale type="threshold">1</scale>
         </format>
@@ -173,4 +237,4 @@
   </html>
     </panel>
   </row>
-</dashboard>
+</form>

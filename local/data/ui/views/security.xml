@@ -1,3 +1,19 @@
-<dashboard>
+<form theme="dark">
   <label>Security</label>
-</dashboard>
+  <fieldset submitButton="false">
+    <input type="time" token="time_tok">
+      <label>Time</label>
+      <default>
+        <earliest>1609891200</earliest>
+        <latest>1609977600</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+    <img src="/static/app/splunk4airports/silhouette.png"/>
+  </html>
+    </panel>
+  </row>
+</form>
