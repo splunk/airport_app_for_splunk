@@ -12,10 +12,12 @@
         <head>
               <style>
          .wtmd-table{
-            border: 0px solid black;
+            border: 1px solid white;
             width: 80%;
             text-align: center;
             font-size: 50px;
+            margin-left: auto;
+            margin-right: auto;
          }
       </style>
    </head>
@@ -150,36 +152,53 @@
       <title>Alarm Zones</title>
       <html>
         <table class="wtmd-table">
+          <tbody>
           <tr>
-            <td rowspan="5">
+            <td rowspan="4">
             <img src="/static/app/splunk4airports/silhouette.png"/>
             </td>
+            <td>$head$%</td>
             <tr>
-              <td>$head$%</td>
-            </tr>
-            <tr>
+
               <td>$torso$%</td>
             </tr>
             <tr>
+
               <td>$waist$%</td>
             </tr>
             <tr>
               <td>$shoes$%</td>
             </tr>
           </tr>
+          </tbody>
         </table>
   </html>
     </panel>
     <panel>
-      <table>
-        <title>Foo</title>
-        <search>
-          <query>| makeresults</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-        </search>
-        <option name="drilldown">none</option>
-      </table>
+      <title>Alarm Zones</title>
+      <html>
+        <table class="wtmd-table">
+          <tbody>
+          <tr>
+            <td rowspan="4">
+            <img src="/static/app/splunk4airports/silhouette.png"/>
+            </td>
+            <td>$head$%</td>
+            <tr>
+
+              <td>$torso$%</td>
+            </tr>
+            <tr>
+
+              <td>$waist$%</td>
+            </tr>
+            <tr>
+              <td>$shoes$%</td>
+            </tr>
+          </tr>
+          </tbody>
+        </table>
+  </html>
     </panel>
   </row>
 </form>
