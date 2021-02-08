@@ -56,7 +56,12 @@
   <row depends="$vi$">
     <panel>
       <html>
-      If you have imnplemented the above mentioned CIM correctly, you should see the below panels light up green below. For this app to function, the following fields are <b>required</b>
+        <h1>Pre-requisistes</h1>
+        The <a href="https://splunkbase.splunk.com/app/3112/" target="_BLANK">Sankey Visualization</a>
+        <br/>
+      If you have implemented the above mentioned CIM correctly, you should see the below panels light up green below. For this app to function, the following fields are <b>required</b>
+        <br/>
+      <h1>Airfield</h1>
       <table class="styled-table">
         <tr>
           <th>Field</th>
@@ -119,6 +124,56 @@
           <td>Actual In-Block Time (Epoch)</td>
         </tr>
       </table>
+      <h1>Baggage</h1>
+            <table class="styled-table">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>bagTag</td>
+          <td>The unique bag tag number, usually the barcode generated at check-in. IATA Resolution 751</td>
+        </tr>
+        <tr>
+          <td>decision</td>
+          <td>Clear the bag for departure, or reject the bag for processing at the next level.</td>
+        </tr>
+        <tr>
+          <td>level</td>
+          <td>The level in which the bag has been seen.</td>
+        </tr>
+        <tr>
+          <td>nextLevel</td>
+          <td>Which level is the bag diverted to next. In some instances, bags are diverted past certain levels.</td>
+        </tr>
+      </table>
+            <h1>Security</h1>
+            <table class="styled-table">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>WTMDID</td>
+          <td>The unique ID of the WTMD</td>
+        </tr>
+        <tr>
+          <td>passengerDirection</td>
+          <td>The direction the passenger walks through the WTMD. 1 = Forwards, 0 = Backwards</td>
+        </tr>
+        <tr>
+          <td>zoneAlarm</td>
+          <td>A digital representation of the alarming zones for the WTMD</td>
+        </tr>
+        <tr>
+          <td>randomAlarm</td>
+          <td>Was the passthrough alarm randomly generated</td>
+        </tr>
+        <tr>
+          <td>alarm</td>
+          <td>Was the passthrough an alarm</td>
+        </tr>
+      </table>
   
     </html>
     </panel>
@@ -133,8 +188,46 @@
           <earliest>-60m@m</earliest>
           <latest>now</latest>
         </search>
+        <option name="colorMode">block</option>
         <option name="drilldown">none</option>
+        <option name="rangeColors">[#E08282,#8CDB92]</option>
+        <option name="rangeValues">[0]</option>
         <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Baggage</title>
+      <single>
+        <title>Event Count `baggageBase` (Last 60mins)</title>
+        <search>
+          <query>| tstats count where `baggageBase`</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">[#E08282,#8CDB92]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Security</title>
+      <single>
+        <title>Event Count `securityBase` (Last 60mins)</title>
+        <search>
+          <query>| tstats count where `securityBase`</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">[#E08282,#8CDB92]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
       </single>
     </panel>
   </row>

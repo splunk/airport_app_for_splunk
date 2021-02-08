@@ -1,3 +1,73 @@
-<dashboard>
+<form theme="dark">
   <label>Baggage</label>
-</dashboard>
+  <search id="baggageBase">
+    <query>`baggageBase` | stats count latest(level) as level min(timestamp) as entry max(timestamp) as exit latest(FQFC) as FQFC latest(SOBT) as SOBT latest(decision) AS decision by bagTag | fields *</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="time_tok">
+      <label>Time</label>
+      <default>
+        <earliest>@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Average time spent in system</title>
+        <search base="baggageBase">
+          <query>| where (level&gt;1 AND count&gt;1) |  eval timeInSystem=exit-entry  | stats avg(timeInSystem) as avgTimeInSystem | eval minutes=round(((avgTimeInSystem)/1000)/60,0) | fields minutes</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">minutes</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Bag count</title>
+        <search base="baggageBase">
+          <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="underLabel">bags</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <viz type="sankey_diagram_app.sankey_diagram">
+        <title>Baggage System Clearance Rates by HBS Level</title>
+        <search>
+          <query>`baggageBase` 
+| stats dc(bagTag) as Bags by level, nextLevel | eval nextLevel=IF(level==nextLevel, "clear", nextLevel)</query>
+          <earliest>$time_tok.earliest$</earliest>
+          <latest>$time_tok.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Bags cleared by level</title>
+        <search base="baggageBase">
+          <query>| eventstats count AS total | stats values(total) as total count by decision level | where decision="clear" | eval percent=round((count/total)*100,2) | sort - level | fields level percent</query>
+        </search>
+        <option name="charting.axisLabelsY.majorUnit">2</option>
+        <option name="charting.axisY.maximumNumber">100</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>
