@@ -1,1 +1,1 @@
-# Splunk App for Airports
+# Airports App for Splunk
