@@ -196,7 +196,7 @@
           <tbody>
           <tr>
             <td rowspan="4">
-            <img class="resizePax" src="/static/app/splunk4airports/silhouette.png"/>
+            <img class="resizePax" src="/static/app/airport_app_for_splunk/silhouette.png"/>
             </td>
             <td>$head$%</td>
             <tr>
@@ -222,7 +222,7 @@
           <tbody>
           <tr>
             <td rowspan="3">
-            <img class="resizeBag" src="/static/app/splunk4airports/cabinbag.png"/>
+            <img class="resizeBag" src="/static/app/airport_app_for_splunk/cabinbag.png"/>
             </td>
             <td>Images<br/>$bags_count$</td>
             <tr>

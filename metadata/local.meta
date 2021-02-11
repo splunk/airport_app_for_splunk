@@ -14,7 +14,7 @@ modtime = 1612797923.393487000
 [views/home]
 owner = admin
 version = 8.1.0
-modtime = 1612797682.049929000
+modtime = 1613075764.668091000
 
 [views/airfield]
 owner = admin
@@ -29,7 +29,7 @@ modtime = 1612796561.635060000
 [views/security]
 owner = admin
 version = 8.1.0
-modtime = 1612969078.000513000
+modtime = 1613075781.025104000
 
 [views/terminals]
 owner = admin
@@ -159,3 +159,63 @@ export = none
 owner = admin
 version = 8.1.0
 modtime = 1612968389.094369000
+
+[savedsearches/Bagagge%20-%20Time%20spent%20in%20system]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075802.586554000
+
+[savedsearches/Baggage%20-%20Clear%20percent%20by%20HBS%20level]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075809.347345000
+
+[savedsearches/Baggage%20-%20Total%20bag%20count]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075814.435294000
+
+[savedsearches/Baggage%20-%20tstats%20-%20Bags%20Cleared%20by%20Level]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075819.614843000
+
+[savedsearches/Baggage%20-%20tstats%20-%20Retrieve%20all%20bag%20information]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075824.684219000
+
+[savedsearches/Baggage%20-%20tstats%20-%20Count%20of%20all%20unique%20bags]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075830.168036000
+
+[savedsearches/Countries%20with%20the%20most%20Airports]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075835.548060000
+
+[savedsearches/Security%20-%20Passenger%20Count%2015m%20Interval]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075841.581817000
+
+[savedsearches/Security%20-%20Random%20Alarm%20Percent]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075846.413922000
+
+[savedsearches/Security%20-%20Real%20Alarm%20Percent]
+export = none
+owner = admin
+version = 8.1.0
+modtime = 1613075851.331834000

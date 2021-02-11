@@ -45,10 +45,10 @@
     <panel>
       <html>
     
-      <h1>Welcome to the Splunk App For Airports</h1>
+      <h1>Welcome to the Airport App for Splunk</h1>
           <br/>
       This app is designed as a framework to help you, the Airport employee, get the most value out of Splunk.<br/>
-      In order to use this app, you must configure your data sources to conform to the Splunk4Airports Common Information Model. This can be found <a href="#">here.</a>
+      In order to use this app, you must configure your data sources to conform to the Airport Common Information Model. This can be found <a href="https://splunk.github.io/airport_cim_for_splunk/" target="_BLANK">here.</a>
           <br/>
           </html>
     </panel>
@@ -321,13 +321,6 @@
           <scale type="threshold">1</scale>
         </format>
       </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <html>
-    <img src="/static/app/splunk4airports/s4a_transparent.png"/>
-  </html>
     </panel>
   </row>
 </form>
