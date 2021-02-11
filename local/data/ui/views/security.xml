@@ -4,6 +4,7 @@
     <set token="torso">0</set>
     <set token="waist">0</set>
     <set token="shoes">0</set>
+    <set token="rejectRate">0</set>
   </init>
   <label>Security</label>
   <search id="paxBase">
@@ -12,6 +13,38 @@
 </query>
     <earliest>$time_tok.earliest$</earliest>
     <latest>$time_tok.latest$</latest>
+  </search>
+  <search id="bagsBase">
+    <query>`bagsBase` | stats count as bags, latest(decision) as decision, latest(TIP) as TIP by imageID | fields *
+</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+  </search>
+  <search base="paxBase">
+    <query>| stats sum(passengerDirection) as passengerDirection</query>
+    <done>
+      <set token="pax_count">$result.passengerDirection$</set>
+    </done>
+  </search>
+  <search base="bagsBase">
+    <query>| stats count as bags</query>
+    <done>
+      <set token="bags_count">$result.bags$</set>
+    </done>
+  </search>
+  <search base="bagsBase">
+    <query>| top decision | where decision="clear"</query>
+    <done>
+      <set token="rejectRate">$result.percent$</set>
+    </done>
+  </search>
+  <search>
+    <query>| makeresults | eval IPP=round(($bags_count$/$pax_count$),2)</query>
+    <earliest>$time_tok.earliest$</earliest>
+    <latest>$time_tok.latest$</latest>
+    <done>
+      <set token="ipp">$result.IPP$</set>
+    </done>
   </search>
   <search base="paxBase">
     <query>| search alarm="True"
@@ -191,14 +224,14 @@
             <td rowspan="3">
             <img class="resizeBag" src="/static/app/splunk4airports/cabinbag.png"/>
             </td>
-            <td>Images<br/>999</td>
+            <td>Images<br/>$bags_count$</td>
             <tr>
 
-              <td>IPP<br/>1.75</td>
+              <td>IPP<br/>$ipp$</td>
             </tr>
             <tr>
 
-              <td>Rejects<br/>23.00%</td>
+              <td>Rejects<br/>$rejectRate$%</td>
             </tr>
           </tr>
           </tbody>
